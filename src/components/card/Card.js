@@ -6,16 +6,19 @@ const Card = (props) => {
    const product=props.data;
    let price=0;
    let shipping = 0;
+   let quantity=0;
    for (const newProduct of product) {
-      price=price + newProduct.price;
-      shipping=shipping + newProduct.shipping;
+      
+      quantity=newProduct.quantity + quantity;
+      price=price + newProduct.price * quantity;
+      shipping=shipping + newProduct.shipping * quantity;
    }
    // tax
    let tax=0;
-   let sam=price + shipping;
-   tax=sam/100*13;
+   let sam=price + shipping ;
+   tax=sam/100*13 ;
    // total price
-   const totalPrice=sam + tax;
+   const totalPrice=sam + tax ;
    return (
       <div>
          <div className="card-header">
@@ -23,11 +26,11 @@ const Card = (props) => {
          </div>
          <div className="card-info">
             <ul>
-               <li>Select Items : <strong>{product.length}</strong> </li>
+               <li>Select Items : <strong>{quantity}</strong> </li>
                <li>Total Price : <strong>$ {price}</strong></li>
                <li>Total Shopping Charge : <strong>$ {shipping}</strong></li>
                <li>Tax : <strong>$ {tax.toFixed(3)}</strong></li>
-               <li>Grand Total : <strong>$ {totalPrice}</strong></li>
+               <li>Grand Total : <strong>$ {totalPrice.toFixed(3)}</strong></li>
             </ul>
          </div>
          <div className="sopping-option">
